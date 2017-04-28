@@ -1,0 +1,45 @@
+{
+    "name": "ngabor84/lumen-api-query-parser",
+    "description": "A query parser for REST-APIs based on laravel's lumen framework",
+    "keywords": ["lumen", "query parser", "api"],
+    "homepage": "https://github.com/ngabor84/lumen-api-query-parser",
+    "type": "library",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Gábor Németh",
+            "email": "negabor@gmail.com",
+            "homepage": "https://nemeth-gabor.hu",
+            "role": "developer"
+        }
+    ],
+    "require": {
+    	"php": "~7.0",
+        "laravel/lumen-framework": "~5.4"
+    },
+    "require-dev": {
+        "mockery/mockery": "~0.9",
+        "phpunit/phpunit": "~6.1",
+        "squizlabs/php_codesniffer": "3.0.0RC4"
+    },
+    "autoload": {
+        "psr-4": {
+            "LumenApiQueryParser\\": "src/"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "Test\\": "tests/"
+        }
+    },
+	"scripts": {
+		"check": [
+		 	"@cs-check",
+		 	"@test"
+		],
+		"cs-check": "./vendor/bin/phpcs --colors",
+		"test": "./vendor/bin/phpunit --colors=always"
+	},
+    "minimum-stability": "stable",
+    "prefer-stable": true
+}
