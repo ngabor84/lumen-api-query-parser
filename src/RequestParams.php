@@ -7,6 +7,7 @@ class RequestParams implements RequestParamsInterface
     protected $filters = [];
     protected $sorts = [];
     protected $pagination;
+    protected $connections = [];
 
     public function addFilter(FilterInterface $filter): void
     {
@@ -36,5 +37,15 @@ class RequestParams implements RequestParamsInterface
     public function getPagination(): PaginationInterface
     {
         return $this->pagination;
+    }
+
+    public function addConnection(ConnectionInterface $connection): void
+    {
+        $this->connections[] = $connection;
+    }
+
+    public function getConnection(): array
+    {
+        return $this->connections;
     }
 }

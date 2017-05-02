@@ -37,7 +37,7 @@ class RequestQueryParserTest extends AbstractQueryParserTest
     public function parseWithParameters(Request $request, array $expected): void
     {
         $parsedParams = $this->parser->parse($request);
-        $expectedParams = $this->createRequestParams($expected['filters'], $expected['sorts'], $expected['limit'], $expected['page']);
+        $expectedParams = $this->createRequestParams($expected['filters'], $expected['sorts'], $expected['limit'], $expected['page'], $expected['connections']);
 
         $this->assertEquals($expectedParams, $parsedParams);
     }

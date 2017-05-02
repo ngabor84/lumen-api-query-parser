@@ -19,6 +19,7 @@ class RequestQueryParser implements RequestQueryParserInterface
         $this->parseFilters($request);
         $this->parseSort($request);
         $this->parsePagination($request);
+        $this->parseConnections($request);
 
         return $this->requestParams;
     }
@@ -63,6 +64,15 @@ class RequestQueryParser implements RequestQueryParserInterface
             $page = (int) ($request->has('page') ? $request->get('page') : 1);
 
             $this->requestParams->addPagination(new Pagination($limit, $page));
+        }
+    }
+
+    protected function parseConnections($request): void
+    {
+        if ($request->has('connection')) {
+            foreach ($request->get('connection') as $connection) {
+                $this->requestParams->addConnection(new Connection($connection));
+            }
         }
     }
 }

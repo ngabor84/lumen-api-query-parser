@@ -3,6 +3,7 @@
 namespace Test;
 
 use Illuminate\Http\Request;
+use LumenApiQueryParser\Connection;
 use LumenApiQueryParser\Filter;
 use LumenApiQueryParser\Pagination;
 use LumenApiQueryParser\RequestParams;
@@ -22,6 +23,7 @@ abstract class AbstractQueryParserTest extends TestCase
                     'sorts' => [],
                     'limit' => null,
                     'page' => null,
+                    'connections' => [],
                 ]
             ],
             [
@@ -31,6 +33,7 @@ abstract class AbstractQueryParserTest extends TestCase
                     'sorts' => [['field' => 'name', 'direction' => 'DESC']],
                     'limit' => null,
                     'page' => null,
+                    'connections' => [],
                 ]
             ],
             [
@@ -40,6 +43,17 @@ abstract class AbstractQueryParserTest extends TestCase
                     'sorts' => [],
                     'limit' => 20,
                     'page' => 2,
+                    'connections' => [],
+                ]
+            ],
+            [
+                new Request(['connection' => ['profile']]),
+                [
+                    'filters' => [],
+                    'sorts' => [],
+                    'limit' => null,
+                    'page' => null,
+                    'connections' => ['profile'],
                 ]
             ],
             [
@@ -48,12 +62,14 @@ abstract class AbstractQueryParserTest extends TestCase
                     'sort' => [['field' => 'updated', 'direction' => 'ASC']],
                     'limit' => 50,
                     'page' => 11,
+                    'connection' => ['profile'],
                 ]),
                 [
                     'filters' => [['field' => 'email', 'operator' => 'lk', 'value' => '@gmail.com']],
                     'sorts' => [['field' => 'updated', 'direction' => 'ASC']],
                     'limit' => 50,
                     'page' => 11,
+                    'connections' => ['profile'],
                 ]
             ],
         ];
@@ -77,7 +93,7 @@ abstract class AbstractQueryParserTest extends TestCase
         ];
     }
 
-    protected function createRequestParams(array $filters = [], array $sorts = [], int $limit = null, int $page = null): RequestParams
+    protected function createRequestParams(array $filters = [], array $sorts = [], int $limit = null, int $page = null, $connections = []): RequestParams
     {
         $requestParams = new RequestParams();
 
@@ -95,6 +111,12 @@ abstract class AbstractQueryParserTest extends TestCase
 
         if (!empty($limit)) {
             $requestParams->addPagination(new Pagination($limit, $page ?? 1));
+        }
+
+        if (!empty($connections)) {
+            foreach ($connections as $connection) {
+                $requestParams->addConnection(new Connection($connection));
+            }
         }
 
         return $requestParams;

@@ -9,4 +9,6 @@ interface RequestParamsInterface
     public function getSorts(): array;
 
     public function getPagination(): PaginationInterface;
+
+    public function getConnection(): array;
 }
