@@ -1,6 +1,6 @@
 <?php
 
-namespace LumenApiQueryParser;
+namespace LumenApiQueryParser\Params;
 
 interface SortInterface
 {

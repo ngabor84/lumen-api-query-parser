@@ -3,11 +3,11 @@
 namespace Test;
 
 use Illuminate\Http\Request;
-use LumenApiQueryParser\Connection;
-use LumenApiQueryParser\Filter;
-use LumenApiQueryParser\Pagination;
-use LumenApiQueryParser\RequestParams;
-use LumenApiQueryParser\Sort;
+use LumenApiQueryParser\Params\Connection;
+use LumenApiQueryParser\Params\Filter;
+use LumenApiQueryParser\Params\Pagination;
+use LumenApiQueryParser\Params\RequestParams;
+use LumenApiQueryParser\Params\Sort;
 use PHPUnit\Framework\TestCase;
 use Symfony\Component\HttpKernel\Exception\UnprocessableEntityHttpException;
 

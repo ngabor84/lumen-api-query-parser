@@ -3,6 +3,12 @@
 namespace LumenApiQueryParser;
 
 use Illuminate\Http\Request;
+use LumenApiQueryParser\Params\Connection;
+use LumenApiQueryParser\Params\Filter;
+use LumenApiQueryParser\Params\Pagination;
+use LumenApiQueryParser\Params\RequestParams;
+use LumenApiQueryParser\Params\RequestParamsInterface;
+use LumenApiQueryParser\Params\Sort;
 use Symfony\Component\HttpKernel\Exception\UnprocessableEntityHttpException;
 
 class RequestQueryParser implements RequestQueryParserInterface

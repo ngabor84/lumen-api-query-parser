@@ -3,8 +3,8 @@
 namespace Test;
 
 use Laravel\Lumen\Application;
-use LumenApiQueryParser\RequestParams;
-use LumenApiQueryParser\RequestQueryParserProvider;
+use LumenApiQueryParser\Params\RequestParams;
+use LumenApiQueryParser\Provider\RequestQueryParserProvider;
 use LumenApiQueryParser\ResourceQueryParserTrait;
 use Illuminate\Http\Request;
 
