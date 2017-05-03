@@ -1,4 +1,5 @@
 # Lumen API query parser
+[ ![Codeship Status for ngabor84/lumen-api-query-parser](https://app.codeship.com/projects/8fd47630-122f-0135-959f-3611331b8dcf/status?branch=master)](https://app.codeship.com/projects/216941)
 
 ## Description
 This is a simple request query parameter parser for REST-APIs based on Laravel's Lumen framework.
