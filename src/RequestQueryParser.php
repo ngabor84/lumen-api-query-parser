@@ -34,13 +34,12 @@ class RequestQueryParser implements RequestQueryParserInterface
     {
         if ($request->has('filter')) {
             foreach ($request->get('filter') as $filter) {
-                if (!isset($filter['field']) || !isset($filter['value'])) {
+                $filterDatas = explode(':', $filter);
+
+                if (count($filterDatas) < 3) {
                     throw new UnprocessableEntityHttpException('Filter must contains field and value!');
                 }
-
-                $field = $filter['field'];
-                $operator = $filter['operator'] ?? 'eq';
-                $value = $filter['value'];
+                list($field, $operator, $value) = $filterDatas;
 
                 $this->requestParams->addFilter(new Filter($field, $operator, $value));
             }
@@ -51,12 +50,11 @@ class RequestQueryParser implements RequestQueryParserInterface
     {
         if ($request->has('sort')) {
             foreach ($request->get('sort') as $sort) {
-                if (!isset($sort['field'])) {
+                list($field, $direction) = explode(':', $sort);
+
+                if (empty($field)) {
                     throw new UnprocessableEntityHttpException('Sort must contains field!');
                 }
-
-                $field = $sort['field'];
-                $direction = $sort['direction'];
 
                 $this->requestParams->addSort(new Sort($field, $direction));
             }

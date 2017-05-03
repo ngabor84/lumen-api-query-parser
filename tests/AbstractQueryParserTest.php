@@ -17,7 +17,7 @@ abstract class AbstractQueryParserTest extends TestCase
     {
         return [
             [
-                new Request(['filter' => [['field' => 'name', 'operator' => 'eq', 'value' => 'John Doe']]]),
+                new Request(['filter' => ['name:eq:John Doe']]),
                 [
                     'filters' => [['field' => 'name', 'operator' => 'eq', 'value' => 'John Doe']],
                     'sorts' => [],
@@ -27,7 +27,7 @@ abstract class AbstractQueryParserTest extends TestCase
                 ]
             ],
             [
-                new Request(['sort' => [['field' => 'name', 'direction' => 'DESC']]]),
+                new Request(['sort' => ['name:DESC']]),
                 [
                     'filters' => [],
                     'sorts' => [['field' => 'name', 'direction' => 'DESC']],
@@ -58,14 +58,14 @@ abstract class AbstractQueryParserTest extends TestCase
             ],
             [
                 new Request([
-                    'filter' => [['field' => 'email', 'operator' => 'lk', 'value' => '@gmail.com']],
-                    'sort' => [['field' => 'updated', 'direction' => 'ASC']],
+                    'filter' => ['email:ew:@gmail.com'],
+                    'sort' => ['updated:ASC'],
                     'limit' => 50,
                     'page' => 11,
                     'connection' => ['profile'],
                 ]),
                 [
-                    'filters' => [['field' => 'email', 'operator' => 'lk', 'value' => '@gmail.com']],
+                    'filters' => [['field' => 'email', 'operator' => 'ew', 'value' => '@gmail.com']],
                     'sorts' => [['field' => 'updated', 'direction' => 'ASC']],
                     'limit' => 50,
                     'page' => 11,
@@ -79,15 +79,15 @@ abstract class AbstractQueryParserTest extends TestCase
     {
         return [
             [
-                new Request(['filter' => [['field' => 'name']]]),
+                new Request(['filter' => ['name']]),
                 UnprocessableEntityHttpException::class
             ],
             [
-                new Request(['sort' => [['direction' => 'DESC']]]),
+                new Request(['sort' => [':DESC']]),
                 UnprocessableEntityHttpException::class
             ],
             [
-                new Request(['sort' => [[]], 'filter' => [[]]]),
+                new Request(['sort' => [''], 'filter' => ['']]),
                 UnprocessableEntityHttpException::class
             ],
         ];

@@ -14,6 +14,11 @@ class RequestParams implements RequestParamsInterface
         $this->filters[] = $filter;
     }
 
+    public function hasFilter(): bool
+    {
+        return (bool) count($this->filters);
+    }
+
     public function getFilters(): array
     {
         return $this->filters;
@@ -22,6 +27,11 @@ class RequestParams implements RequestParamsInterface
     public function addSort(SortInterface $sort): void
     {
         $this->sorts[] = $sort;
+    }
+
+    public function hasSort(): bool
+    {
+        return (bool) count($this->sorts);
     }
 
     public function getSorts(): array
@@ -34,6 +44,11 @@ class RequestParams implements RequestParamsInterface
         $this->pagination = $pagination;
     }
 
+    public function hasPagination(): bool
+    {
+        return $this->pagination !== null;
+    }
+
     public function getPagination(): PaginationInterface
     {
         return $this->pagination;
@@ -44,7 +59,12 @@ class RequestParams implements RequestParamsInterface
         $this->connections[] = $connection;
     }
 
-    public function getConnection(): array
+    public function hasConnection(): bool
+    {
+        return (bool) count($this->connections);
+    }
+
+    public function getConnections(): array
     {
         return $this->connections;
     }
