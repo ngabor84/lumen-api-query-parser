@@ -64,11 +64,11 @@ This is a simple request query parameter parser for REST-APIs based on Laravel's
 ## Query syntax
 
 ### Eager loading
-Q: /users?connection[]=profile
+Q: /users?connection[]=profile  
 R: will return the collection of the users with their profiles included
 
 ### Filtering
-Q: /users?filter[]=name:ct:admin
+Q: /users?filter[]=name:ct:admin    
 R: will return the collection of the users whose names contains the admin string
 
 __Available filter options__
@@ -85,9 +85,9 @@ __Available filter options__
 |in	        |In array               |level:in:1|2|3
 
 ### Sorting
-Q: /users?sort[]=name:ASC
+Q: /users?sort[]=name:ASC   
 R: will return the collection of the users sort by their names ascending
 
 ### Pagination
-Q: /users?limit=10&page=3
+Q: /users?limit=10&page=3   
 R: will return a part of the collection of the users (from the 21st to 30th)
