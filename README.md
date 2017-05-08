@@ -71,7 +71,7 @@ R: will return the collection of the users with their profiles included
 Q: /users?filter[]=name:ct:admin    
 R: will return the collection of the users whose names contains the admin string
 
-__Available filter options__
+__Available filter options__    
 |Operator   |Description            |Example
 |ct         |String contains        |name:ct:Peter
 |sw	        |String starts with     |username:sq:admin
