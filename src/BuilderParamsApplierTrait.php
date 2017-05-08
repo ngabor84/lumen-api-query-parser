@@ -76,9 +76,6 @@ trait BuilderParamsApplierTrait
             case 'ge':
                 $clauseOperator = '>=';
                 break;
-            case 'bt':
-                $clauseOperator = 'between';
-                break;
             case 'lt':
                 $clauseOperator = '<';
                 break;
@@ -89,7 +86,7 @@ trait BuilderParamsApplierTrait
 
         if ($operator === 'in') {
             call_user_func_array([$query, 'whereIn'], [
-                $field, $value
+                $field, explode('|', $value)
             ]);
         } else {
             call_user_func_array([$query, $method], [
