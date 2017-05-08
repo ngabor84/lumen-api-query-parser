@@ -72,17 +72,19 @@ Q: /users?filter[]=name:ct:admin
 R: will return the collection of the users whose names contains the admin string
 
 __Available filter options__    
-|Operator   |Description            |Example
-|ct         |String contains        |name:ct:Peter
-|sw	        |String starts with     |username:sq:admin
-|ew	        |String ends with       |email:ew:gmail.com
-|eq	        |Equals                 |level:eq:3
-|ne	        |Not equals             |level:ne:4
-|gt	        |Greater than           |level:gt:2
-|ge	        |Greater than or equal  |level:ge:3
-|lt	        |Lesser than            |level:lt:4
-|le	        |Lesser than or equal   |level:le:3
-|in	        |In array               |level:in:1|2|3
+
+| Operator      | Description           | Example |
+| ------------- | --------------------- | ------- |
+| ct            | String contains       | name:ct:Peter |
+| sw	        | String starts with    | username:sq:admin |
+| ew	        | String ends with      | email:ew:gmail.com |
+| eq	        | Equals                | level:eq:3 |
+| ne	        | Not equals            | level:ne:4 |
+| gt	        | Greater than          | level:gt:2 |
+| ge	        | Greater than or equal | level:ge:3 |
+| lt	        | Lesser than           | level:lt:4 |
+| le	        | Lesser than or equal  | level:le:3 |
+| in	        | In array              | level:in:1 |
 
 ### Sorting
 Q: /users?sort[]=name:ASC   
