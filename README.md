@@ -76,7 +76,7 @@ __Available filter options__
 | Operator      | Description           | Example |
 | ------------- | --------------------- | ------- |
 | ct            | String contains       | name:ct:Peter |
-| sw	        | String starts with    | username:sq:admin |
+| sw	        | String starts with    | username:sw:admin |
 | ew	        | String ends with      | email:ew:gmail.com |
 | eq	        | Equals                | level:eq:3 |
 | ne	        | Not equals            | level:ne:4 |
@@ -84,7 +84,7 @@ __Available filter options__
 | ge	        | Greater than or equal | level:ge:3 |
 | lt	        | Lesser than           | level:lt:4 |
 | le	        | Lesser than or equal  | level:le:3 |
-| in	        | In array              | level:in:1 &#124; 2 &#124; 3 |
+| in	        | In array              | level:in:1&#124;2&#124;3 |
 
 ### Sorting
 Q: /users?sort[]=name:ASC   
