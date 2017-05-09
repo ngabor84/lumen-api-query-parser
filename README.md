@@ -84,7 +84,7 @@ __Available filter options__
 | ge	        | Greater than or equal | level:ge:3 |
 | lt	        | Lesser than           | level:lt:4 |
 | le	        | Lesser than or equal  | level:le:3 |
-| in	        | In array              | level:in:1 |
+| in	        | In array              | level:in:1 &#124; 2 &#124; 3 |
 
 ### Sorting
 Q: /users?sort[]=name:ASC   
