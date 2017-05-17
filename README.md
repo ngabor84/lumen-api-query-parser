@@ -33,28 +33,12 @@ This is a simple request query parameter parser for REST-APIs based on Laravel's
     {
         use ResourceQueryParserTrait;
         use BuilderParamsApplierTrait;
-        
+                
         public function index(Request $request)
         {
             $params = $this->parseQueryParams($request);
             $query = User::query();
-            $this->applyParams($query, $params);
-            $users = $query->get();
-            
-            $this->response->collection($users, new UserTransformer, ['key' => 'users']);
-        }
-        
-        public function indexWithPaginator(Request $request)
-        {
-            $params = $this->parseQueryParams($request);
-            $query = User::query();
-            $this->applyParams($query, $params);
-            $userPaginator = $query->paginate(
-                $params->getPagination()->getLimit(), 
-                ['*'], 
-                'page', 
-                $params->getPagination()->getPage()
-            );
+            $userPaginator = $this->applyParams($query, $params);
             
             $this->response->paginator($userPaginator, new UserTransformer, ['key' => 'users']);
         }
