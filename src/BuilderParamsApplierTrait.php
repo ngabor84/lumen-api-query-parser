@@ -2,6 +2,7 @@
 
 namespace LumenApiQueryParser;
 
+use Illuminate\Contracts\Pagination\LengthAwarePaginator;
 use Illuminate\Database\Eloquent\Builder;
 use LumenApiQueryParser\Params\Filter;
 use LumenApiQueryParser\Params\RequestParamsInterface;
@@ -9,7 +10,7 @@ use LumenApiQueryParser\Params\Sort;
 
 trait BuilderParamsApplierTrait
 {
-    public function applyParams(Builder $query, RequestParamsInterface $params)
+    public function applyParams(Builder $query, RequestParamsInterface $params): LengthAwarePaginator
     {
         if ($params->hasFilter()) {
             foreach ($params->getFilters() as $filter) {
@@ -23,12 +24,6 @@ trait BuilderParamsApplierTrait
             }
         }
 
-        if ($params->hasPagination()) {
-            $pagination = $params->getPagination();
-            $query->limit($pagination->getLimit());
-            $query->offset($pagination->getPage() * $pagination->getLimit());
-        }
-
         if ($params->hasConnection()) {
             $with = [];
             foreach ($params->getConnections() as $connection) {
@@ -37,7 +32,18 @@ trait BuilderParamsApplierTrait
             $query->with($with);
         }
 
-        return $query->get();
+        if ($params->hasPagination()) {
+            $pagination = $params->getPagination();
+            $query->limit($pagination->getLimit());
+            $query->offset($pagination->getPage() * $pagination->getLimit());
+
+            $paginator = $query->paginate($params->getPagination()->getLimit(), ['*'], 'page', $params->getPagination()->getPage());
+        } else {
+            $paginator = $query->paginate($query->count(), ['*'], 'page', 1);
+        }
+
+
+        return $paginator;
     }
 
     protected function applyFilter(Builder $query, Filter $filter): void
