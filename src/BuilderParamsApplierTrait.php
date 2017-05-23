@@ -7,6 +7,7 @@ use Illuminate\Database\Eloquent\Builder;
 use LumenApiQueryParser\Params\Filter;
 use LumenApiQueryParser\Params\RequestParamsInterface;
 use LumenApiQueryParser\Params\Sort;
+use Symfony\Component\HttpKernel\Exception\BadRequestHttpException;
 
 trait BuilderParamsApplierTrait
 {
@@ -70,7 +71,6 @@ trait BuilderParamsApplierTrait
                 $clauseOperator = 'LIKE';
                 break;
             case 'eq':
-            default:
                 $clauseOperator = '=';
                 break;
             case 'ne':
@@ -88,12 +88,12 @@ trait BuilderParamsApplierTrait
             case 'le':
                 $clauseOperator = '<=';
                 break;
+            default:
+                throw new BadRequestHttpException(sprintf('Not allowed operator: %s', $operator));
         }
 
         if ($operator === 'in') {
-            call_user_func_array([$query, 'whereIn'], [
-                $field, explode('|', $value)
-            ]);
+            $query->whereIn($filter, explode('|', $value));
         } else {
             call_user_func_array([$query, $method], [
                 $field, $clauseOperator, $value
