@@ -58,14 +58,17 @@ abstract class AbstractQueryParserTest extends TestCase
             ],
             [
                 new Request([
-                    'filter' => ['email:ew:@gmail.com'],
+                    'filter' => ['email:ew:@gmail.com', 'createdAt:eq:2018-07-2017:06:41'],
                     'sort' => ['updated:ASC'],
                     'limit' => 50,
                     'page' => 11,
                     'connection' => ['profile'],
                 ]),
                 [
-                    'filters' => [['field' => 'email', 'operator' => 'ew', 'value' => '@gmail.com']],
+                    'filters' => [
+                        ['field' => 'email', 'operator' => 'ew', 'value' => '@gmail.com'],
+                        ['field' => 'createdAt', 'operator' => 'eq', 'value' => '2018-07-2017:06:41']
+                    ],
                     'sorts' => [['field' => 'updated', 'direction' => 'ASC']],
                     'limit' => 50,
                     'page' => 11,

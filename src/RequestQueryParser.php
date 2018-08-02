@@ -34,7 +34,7 @@ class RequestQueryParser implements RequestQueryParserInterface
     {
         if ($request->has('filter')) {
             foreach ($request->get('filter') as $filter) {
-                $filterDatas = explode(':', $filter);
+                $filterDatas = explode(':', $filter, 3);
 
                 if (count($filterDatas) < 3) {
                     throw new UnprocessableEntityHttpException('Filter must contains field and value!');
