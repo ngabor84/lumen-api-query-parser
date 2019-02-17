@@ -60,6 +60,7 @@ __Available filter options__
 | Operator      | Description           | Example |
 | ------------- | --------------------- | ------- |
 | ct            | String contains       | name:ct:Peter |
+| nct           | String NOT contains   | name:nct:Peter |
 | sw	        | String starts with    | username:sw:admin |
 | ew	        | String ends with      | email:ew:gmail.com |
 | eq	        | Equals                | level:eq:3 |

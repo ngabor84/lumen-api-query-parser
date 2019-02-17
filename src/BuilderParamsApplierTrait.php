@@ -62,6 +62,10 @@ trait BuilderParamsApplierTrait
                 $value = '%' . $value . '%';
                 $clauseOperator = 'LIKE';
                 break;
+            case 'nct':
+                $value = '%' . $value . '%';
+                $clauseOperator = 'NOT LIKE';
+                break;
             case 'sw':
                 $value = $value . '%';
                 $clauseOperator = 'LIKE';
