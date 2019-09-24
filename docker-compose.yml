@@ -1,0 +1,13 @@
+version: '2.1'
+
+services:
+  app:
+    container_name: lumen-query-parser
+    build: .
+    ports:
+      - "8000:80"
+    volumes:
+      - .:/var/www/html
+    environment:
+      - COMPOSER_ALLOW_SUPERUSER=1
+      - PHP_OPCACHE_VALIDATE_TIMESTAMPS=1
