@@ -7,7 +7,7 @@ class Pagination implements PaginationInterface
     protected $limit;
     protected $page;
 
-    public function __construct(int $limit = null, int $page = null)
+    public function __construct(?int $limit = null, ?int $page = null)
     {
         $this->setLimit($limit);
         $this->setPage($page);

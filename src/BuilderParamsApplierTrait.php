@@ -38,11 +38,15 @@ trait BuilderParamsApplierTrait
             $query->limit($pagination->getLimit());
             $query->offset($pagination->getPage() * $pagination->getLimit());
 
-            $paginator = $query->paginate($params->getPagination()->getLimit(), ['*'], 'page', $params->getPagination()->getPage());
+            $paginator = $query->paginate(
+                $params->getPagination()->getLimit(),
+                ['*'],
+                'page',
+                $params->getPagination()->getPage()
+            );
         } else {
             $paginator = $query->paginate($query->count(), ['*'], 'page', 1);
         }
-
 
         return $paginator;
     }
@@ -55,7 +59,6 @@ trait BuilderParamsApplierTrait
         $value = $filter->getValue();
         $method = 'where';
         $clauseOperator = null;
-        $databaseField = null;
 
         switch ($operator) {
             case 'ct':
@@ -67,7 +70,7 @@ trait BuilderParamsApplierTrait
                 $clauseOperator = 'NOT LIKE';
                 break;
             case 'sw':
-                $value = $value . '%';
+                $value .= '%';
                 $clauseOperator = 'LIKE';
                 break;
             case 'ew':
@@ -99,9 +102,10 @@ trait BuilderParamsApplierTrait
         if ($operator === 'in') {
             $query->whereIn($filter, explode('|', $value));
         } else {
-            call_user_func_array([$query, $method], [
-                $field, $clauseOperator, $value
-            ]);
+            call_user_func_array(
+                [$query, $method],
+                [$field, $clauseOperator, $value]
+            );
         }
     }
 

@@ -32,32 +32,32 @@ class RequestQueryParser implements RequestQueryParserInterface
 
     protected function parseFilters(Request $request): void
     {
-        if ($request->has('filter')) {
-            foreach ($request->get('filter') as $filter) {
-                $filterDatas = explode(':', $filter, 3);
+        $filters = $request->has('filter') ? $request->get('filter') : [];
 
-                if (count($filterDatas) < 3) {
-                    throw new UnprocessableEntityHttpException('Filter must contains field and value!');
-                }
-                list($field, $operator, $value) = $filterDatas;
+        foreach ($filters as $filter) {
+            $filterDatas = explode(':', $filter, 3);
 
-                $this->requestParams->addFilter(new Filter($field, $operator, $value));
+            if (count($filterDatas) < 3) {
+                throw new UnprocessableEntityHttpException('Filter must contains field and value!');
             }
+            [$field, $operator, $value] = $filterDatas;
+
+            $this->requestParams->addFilter(new Filter($field, $operator, $value));
         }
     }
 
     protected function parseSort(Request $request): void
     {
-        if ($request->has('sort')) {
-            foreach ($request->get('sort') as $sort) {
-                list($field, $direction) = explode(':', $sort);
+        $sorts = $request->has('sort') ? $request->get('sort') : [];
 
-                if (empty($field)) {
-                    throw new UnprocessableEntityHttpException('Sort must contains field!');
-                }
+        foreach ($sorts as $sort) {
+            [$field, $direction] = explode(':', $sort);
 
-                $this->requestParams->addSort(new Sort($field, $direction));
+            if ($field === '') {
+                throw new UnprocessableEntityHttpException('Sort must contains field!');
             }
+
+            $this->requestParams->addSort(new Sort($field, $direction));
         }
     }
 
