@@ -1,47 +1,31 @@
 default: help
 
-run_docker=docker-compose run --rm app
+run_docker=docker run -v $(shell pwd):/app -w /app --rm -it lumen-api-query-parser
 
-help: ## Show this help
-	@echo "Targets:"
-	@fgrep -h "##" $(MAKEFILE_LIST) | fgrep -v fgrep | sed -e 's/\\$$//' | sed -e 's/\(.*\):.*##[ \t]*/    \1 ## /' | sort | column -t -s '##'
-	@echo
+help: ## This help message
+	@fgrep -h "##" $(MAKEFILE_LIST) | fgrep -v fgrep | sed -e 's/\\$$//' -e 's/:.*#/: #/' | column -t -s '##'
 
-build: ##Build the docker image
-	docker-compose build --no-cache
+build-docker-image:
+	docker build -t lumen-api-query-parser .
 
-install: ##Install the project dependencies with composer
-	$(run_docker) composer install --no-interaction
+install: ## Install dependencies with Composer
+	@$(MAKE) build-docker-image
+	@$(run_docker) composer install
 
-update: ##Update the project dependencies with composer
-	$(run_docker) composer update --no-interaction
+update: ## Update dependencies with Composer
+	@$(run_docker) composer update
 
-du: ##Regenerate composer autoloader
-	$(run_docker) composer dump-autoload
+sh: ## Open a shell in the container
+	@$(run_docker) /bin/sh
 
-up: ##Starts docker-compose
-	docker-compose up --build
+check: ## Run PHP Insights
+	@$(run_docker) ./vendor/bin/phpinsights --config-path=insights.php --no-interaction --min-quality=100 --min-architecture=100 --min-style=100
 
-upd: ##Starts docker-compose in daemon mode
-	docker-compose up -d --build
+check-native: ## Run PHP Insights without Docker
+	./vendor/bin/phpinsights --config-path=insights.php --no-interaction --min-quality=100 --min-architecture=100 --min-style=100
 
-stop: ##Stops docker-compose
-	docker-compose stop
+test: ## Run tests
+	@$(run_docker) ./vendor/bin/phpunit -c phpunit.xml
 
-down: ##Destroys service containers
-	docker-compose down
-
-sh: ##Starts a bash shell in service container
-	$(run_docker) bash
-
-logs: ##Shows logs of service
-	docker-compose logs app
-
-logst: ##Tails logs of service
-	docker-compose logs -f app
-
-test: ##Run tests (without xdebug)
-	$(run_docker) bash -c "rm /usr/local/etc/php/conf.d/docker-php-ext-xdebug.ini && ./vendor/bin/phpunit"
-
-cs-check: ##Run PHP Code Sniffer (without xdebug)
-	$(run_docker) bash -c "rm /usr/local/etc/php/conf.d/docker-php-ext-xdebug.ini && ./vendor/bin/phpcs --colors"
+test-native: ## Run tests without Docker
+	./vendor/bin/phpunit -c phpunit.xml
